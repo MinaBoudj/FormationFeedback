@@ -1,0 +1,17 @@
+<div class="add-avis">
+    <h1> {{ title }}</h1>
+    <div class="container">
+        <app-recherche-avis (changementListe)="changerListe($event)"></app-recherche-avis>
+        <button class="avis-button" (click)="ouvrirAvis(undefined)">Donnez un avis</button>
+    </div>
+
+</div>
+<div class="avis-liste">
+    <div *ngFor="let a of avis" class="avis" (click)="ouvrirAvis(a)">
+        <h2>{{ a.formation }}</h2>
+        <p class="avis-global">Avis global : {{ a.avisGlobal }}</p>
+        <app-notation-etoile [note]="a.noteGlobale" [modeLecture]="true"></app-notation-etoile>
+        <p>Publier le : {{ a.datePublication | date: 'dd/MM/yyyy' }}</p>
+        <div *ngIf="!a.anonyme"> Par : {{ a.agent.nom }} {{a.agent.prenom}}</div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<section>
+    <mat-label>{{ reponse.question.texte }}<span>*</span></mat-label>
+    <input matInput type="text" placeholder="text" name="commentaire" [(ngModel)]="reponse.commentaire"
+           [readonly]="modeLecture" required #commentaire="ngModel">
+    <div *ngIf="commentaire.invalid && commentaire.touched" class="alert-danger">
+        Ce champ est requis.
+    </div>
+    <app-notation-etoile [note]="reponse.note" [modeLecture]="modeLecture"
+                         (changementNote)="emettreNote($event)"></app-notation-etoile>
+</section>

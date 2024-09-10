@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: Raleway, sans-serif;
+  background-color: #F5F5F5;
+}
+
+input:read-only{
+  cursor: default;
+}
+
+input:focus {
+  outline: #1c335c auto 1px;
+}
+
+textarea:read-only{
+  cursor: default;
+}
+
+.etoile:read-only{
+  cursor: default;
+}
+
+button{
+  cursor: pointer;
+  padding: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #cccccc;
+  color: #007cc2;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 1rem; //taille de la police
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  color: white;
+  background-color: #1c335c;
+}
+
+button:active {
+  background-color: black;
+}
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: auto;
+}
+html, body { height: 100%; }

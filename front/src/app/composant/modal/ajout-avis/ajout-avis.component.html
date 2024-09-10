@@ -1,0 +1,81 @@
+<div class="ajout-avis-component">
+    <form novalidate class="formulaireAjout" (ngSubmit)="onSubmit()">
+        <h1>QUESTIONNAIRE DE SATISFACTION</h1>
+        <p *ngIf="!modeLecture">Votre avis nous intéresse !</p>
+
+        <!-- Sous-famille: Informations de la formation -->
+        <fieldset>
+            <legend>Informations de la formation</legend>
+            <section>
+                <mat-label class="gras">Intitulé de la formation <span>*</span></mat-label>
+                <input matInput name="formation" id="formation" type="text" placeholder="text" [(ngModel)]="avis.formation"
+                       [readonly]="modeLecture" [ngModelOptions]="{standalone: true}" required #formation="ngModel">
+                <div *ngIf="formation.invalid && formation.touched" class="alert-danger">
+                    Ce champ est requis.
+                </div>
+            </section>
+            <section>
+                <mat-label class="gras">Organisme de la formation <span>*</span></mat-label>
+                <input matInput name="organisme" type="text" placeholder="nom de l'organisme"
+                       [(ngModel)]="avis.organisme" [readonly]="modeLecture" [ngModelOptions]="{standalone: true}" required
+                       #organisme="ngModel">
+                <div *ngIf="organisme.invalid && organisme.touched" class="alert-danger">
+                    Ce champ est requis.
+                </div>
+            </section>
+        </fieldset>
+
+        <!-- Sous-famille: Réponses -->
+        <fieldset>
+            <legend>Réponses</legend>
+            <section *ngFor="let reponse of avis.reponses">
+                <app-item-avis [reponse]="reponse" [modeLecture]="modeLecture"
+                               (reponseConstruite)="nouvelleReponse($event)"></app-item-avis>
+            </section>
+        </fieldset>
+
+        <!-- Sous-famille: Informations personnelles -->
+        <fieldset *ngIf="!modeLecture">
+            <legend>Informations personnelles</legend>
+            <section>
+                <mat-label>Voulez-vous partager vos informations personnelles ?
+                    <mat-radio-group name="anonyme" [(ngModel)]="avis.anonyme" [ngModelOptions]="{standalone: true}"
+                                     required #anonyme="ngModel">
+                        <mat-radio-button value="false"> Oui</mat-radio-button>
+                        <mat-radio-button [checked]='true' value="true"> Non</mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="anonyme.invalid && anonyme.touched" class="alert-danger">
+                        Vous devez selectionner une option
+                    </div>
+                </mat-label>
+            </section>
+        </fieldset>
+
+        <!-- Sous-famille: Avis global -->
+        <fieldset>
+            <legend>Avis global</legend>
+            <section>
+                <mat-label *ngIf="!modeLecture">Donnez un avis global sur la formation <span>*</span></mat-label>
+                <mat-label *ngIf="modeLecture">L'avis global sur la formation</mat-label>
+                <input matInput name="avisGlobal" type="text" placeholder="un avis global" [(ngModel)]="avis.avisGlobal"
+                       [readonly]="modeLecture" [ngModelOptions]="{standalone: true}" required #avisGlobal="ngModel">
+                <div *ngIf="avisGlobal.invalid && avisGlobal.touched" class="alert-danger">
+                    Ce champ est requis.
+                </div>
+            </section>
+            <section *ngIf="modeLecture">
+                <mat-label>La note globale </mat-label>
+                <app-notation-etoile [note]="avis.noteGlobale" [modeLecture]="true"></app-notation-etoile>
+            </section>
+        </fieldset>
+
+        <!-- Sous-famille: Actions -->
+        <fieldset>
+            <legend>Actions</legend>
+            <section>
+                <button class="submit-bn" *ngIf="!modeLecture" type="submit" [disabled]="!avisValid()">Publier</button>
+                <button type="button" (click)="closePopUp()">Retour</button>
+            </section>
+        </fieldset>
+    </form>
+</div>

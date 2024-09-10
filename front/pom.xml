@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>fr.cnieg.formation</groupId>
+    <artifactId>formation-front</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Front Formation</name>
+    <description>Front Formation</description>
+
+    <properties>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <node.version>v16.14.0</node.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <preparationGoals>frontend:npm@npm-release</preparationGoals>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>binary-node-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>npm-install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>none</phase>
+                        <configuration>
+                            <arguments>install --registry=https://nexus.cnieg.fr/repository/npm-public --https-proxy=http://i64apt01:8080
+                                --proxy=http://i64apt01:8080
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm-release</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>none</phase>
+                        <configuration>
+                            <arguments>run release -- ${project.version} --ci --verbose</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

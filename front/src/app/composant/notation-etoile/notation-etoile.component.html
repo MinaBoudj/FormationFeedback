@@ -1,0 +1,6 @@
+<div class="notation-etoile">
+    <mat-icon class="etoile" *ngFor="let _ of [].constructor(modeLecture ? note : noteMax); let i =index"
+              [class.full]="estNote(i)" (click)="modeLecture ? null : donnerNote(i + 1)">
+        {{ afficherIcon(i) }}
+    </mat-icon>
+</div>

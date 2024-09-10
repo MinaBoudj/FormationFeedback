@@ -1,0 +1,18 @@
+<div class="search-bar">
+    <div class="form-fields">
+        <mat-form-field class="input">
+            <mat-label>recherche de formation..</mat-label>
+            <input #nom matInput type="text" id="search-box" (input)="recherche(nom.value)">
+        </mat-form-field>
+        <mat-form-field class="filtre">
+            <mat-label>Filtres</mat-label>
+            <mat-select [(value)]="critereRecherche" (selectionChange)="changementCritere($event)">
+                <mat-option value="sansFiltres">sans filtres</mat-option>
+                <mat-option value="formation">par formation</mat-option>
+                <mat-option value="organisme">par organisme</mat-option>
+                <mat-option value="note">trier par note</mat-option>
+                <mat-option value="date">trier par date</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
